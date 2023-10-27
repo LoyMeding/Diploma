@@ -1,0 +1,18 @@
+data_params:
+  image_shape: [3, 224, 224]
+  classes:
+  - "butterfly"
+  - "cavallo"
+  - "elefante"
+  - "farfalla"
+  - "gallina"
+  - "gatto"
+  - "mucca"
+  - "pecora"
+  - "ragno"
+  - "scoiattolo"
+  batch_size: 64
+  shuffle: false
+  train_dir: "/animals10/train/"
+  test_dir: "/animals10/test/"
+  valid_dir: "/animals10/valid/"
