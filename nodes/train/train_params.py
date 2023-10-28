@@ -3,6 +3,7 @@ from dataclasses import dataclass, field
 
 @dataclass()
 class TrainParams:
+    train: str
     epochs: int = field(default=1)
     pretrained_path: str = field(default="None")
     model_name: str = field(default="None")

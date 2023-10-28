@@ -1,0 +1,66 @@
+version: "3.7"
+services:
+
+
+  dataloaders:
+    container_name: dataloaders
+    build .
+    volumes:
+      - ./nodes/dataloaders:/data
+    networks:
+      nodes:
+        ipv4_address: 172.25.0.11
+
+  model:
+    container_name: model
+    build .
+    volumes:
+      - ./nodes/model:/data
+    networks:
+      nodes:
+        ipv4_address: 172.25.0.12
+
+  train:
+    container_name: train
+    build .
+    volumes:
+      - ./nodes/train:/data
+    networks:
+      nodes:
+        ipv4_address: 172.25.0.13
+
+  predict:
+    container_name: predict
+    build .
+    volumes:
+      - ./nodes/predict:/data
+    networks:
+      nodes:
+        ipv4_address: 172.25.0.14
+
+  nodered:
+    image: nodered/node-red
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./data:/data
+    environment:
+      - TZ=Europe/Moscow
+    restart: always
+
+networks:
+  nodes:
+    name: nodes
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.25.0.0/16
+
+volumes:
+  dataloaders:
+  model:
+  train:
+  predict:
+  nodered:
+

@@ -6,7 +6,10 @@ import sys
 from dataclasses import dataclass, field
 from marshmallow_dataclass import class_schema
 
-from entities.train_params import TrainingParams
+from nodes.train.train_params import TrainParams
+from nodes.dataloaders.dataloader_params import DataloadersParams
+from nodes.model.model_params import ModelParams
+from nodes.predict.predict_params import PredictParams
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
@@ -19,7 +22,10 @@ PATH = "C:\\Users\\sharn\\Desktop\\prod\\diploma\\config.yaml"
 
 @dataclass()
 class PipelineParams:
-    train_params: TrainingParams
+    model_params: ModelParams
+    dataloader_params: DataloadersParams
+    train_params: TrainParams
+    predict_params: PredictParams
 
 
 PipelineParamsSchema = class_schema(PipelineParams)
@@ -29,7 +35,6 @@ def read_pipeline_params(path: str) -> PipelineParams:
     # Получение словаря путей к конфигурационным файлам
     with open(path, "r") as input_stream:
         configs_path_dict = yaml.safe_load(input_stream)
-    logger.info(configs_path_dict)
     all_configs_dict = dict()
     # Получение параметров из каждого конфигурационного файла
     for config in configs_path_dict:
@@ -41,6 +46,7 @@ def read_pipeline_params(path: str) -> PipelineParams:
     logger.info("All params check: %s", all_configs_dict)
     schema = PipelineParamsSchema().load(all_configs_dict)
     logger.info("Check schema: %s", schema)
+    logger.info("Successful read")
     return schema
 
 

@@ -1,2 +1,7 @@
-train_params:  C:\\Users\\sharn\\Desktop\\prod\\diploma\\train\\config.yaml
+model_params: C:\Users\sharn\Desktop\prod\diploma\nodes\model\config.yaml
+dataloader_params: C:\Users\sharn\Desktop\prod\diploma\nodes\dataloaders\config.yaml
+train_params: C:\Users\sharn\Desktop\prod\diploma\nodes\train\config.yaml
+predict_params: C:\Users\sharn\Desktop\prod\diploma\nodes\predict\config.yaml
+
+
 

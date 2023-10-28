@@ -1,6 +1,6 @@
-train:
-  epochs: 1
-  pretrained_path: "None"
-  model_name: "ResNet"
-  batch_size: 32
-  cuda: false
+train: C:\Users\sharn\Desktop\prod\diploma\nodes\train
+epochs: 0
+pretrained_path: None
+model_name: ResNet
+batch_size: 32
+cuda: false

@@ -1,3 +1,5 @@
-.idea/**
-__pyache__/**
-/nodes/__pyache__/**
+/.idea/
+/__pyache__/
+/nodes/__pyache__/
+/venv/
+/data/animals10/

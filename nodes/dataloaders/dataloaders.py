@@ -55,16 +55,15 @@ transform = transforms.Compose([
 ])
 
 
-def create_dataloaders(
-        transform: transforms.Compose,
+def dataloaders(
         batch_size: int,
         shuffle: bool,
-        train_data_dir: str,
-        test_data_dir: str,
-        valid_data_dir: str
+        train_dir: str,
+        test_dir: str,
+        valid_dir: str
 ) -> Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
-    train_dataset = ImageFolderDataset(train_data_dir, transform=transform)
-    test_dataset = ImageFolderDataset(test_data_dir, transform=transform)
+    train_dataset = ImageFolderDataset(train_dir, transform=transform)
+    test_dataset = ImageFolderDataset(test_dir, transform=transform)
 
     train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=False)
     test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False)

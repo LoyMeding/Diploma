@@ -1,0 +1,267 @@
+[
+    {
+        "id": "e15af5791eb569ed",
+        "type": "tab",
+        "label": "Поток 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2049e8fa3741b070",
+        "type": "inject",
+        "z": "e15af5791eb569ed",
+        "name": "Model",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "C:\\Users\\sharn\\Desktop\\prod\\diploma\\nodes\\model\\config.yaml",
+        "payloadType": "str",
+        "x": 90,
+        "y": 260,
+        "wires": [
+            [
+                "e7616e7347067f6a"
+            ]
+        ]
+    },
+    {
+        "id": "21e1fffe8e860180",
+        "type": "debug",
+        "z": "e15af5791eb569ed",
+        "name": "Терминал",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1290,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "770e7f87676cb7b5",
+        "type": "inject",
+        "z": "e15af5791eb569ed",
+        "name": "Dataloaders",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "C:\\Users\\sharn\\Desktop\\prod\\diploma\\nodes\\dataloaders\\config.yaml",
+        "payloadType": "str",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "2de3a17f65e7ac25"
+            ]
+        ]
+    },
+    {
+        "id": "2de3a17f65e7ac25",
+        "type": "template",
+        "z": "e15af5791eb569ed",
+        "name": "Преобразование строки",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "dataloader_params:  {{payload}}",
+        "output": "str",
+        "x": 390,
+        "y": 180,
+        "wires": [
+            [
+                "9f5fe6917fd46e17"
+            ]
+        ]
+    },
+    {
+        "id": "e7616e7347067f6a",
+        "type": "template",
+        "z": "e15af5791eb569ed",
+        "name": "Преобразование строки",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "model_params: {{payload}}",
+        "output": "str",
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "9f5fe6917fd46e17"
+            ]
+        ]
+    },
+    {
+        "id": "b7a1b79226affc84",
+        "type": "pythonshell in",
+        "z": "e15af5791eb569ed",
+        "name": "Запуск pipeline",
+        "pyfile": "C:\\Users\\sharn\\Desktop\\prod\\diploma\\animals_pipeline.py",
+        "virtualenv": "",
+        "continuous": false,
+        "stdInData": false,
+        "x": 1080,
+        "y": 260,
+        "wires": [
+            [
+                "21e1fffe8e860180"
+            ]
+        ]
+    },
+    {
+        "id": "1e819ed0b53fd40e",
+        "type": "file",
+        "z": "e15af5791eb569ed",
+        "name": "Запись в файл",
+        "filename": "C:\\Users\\sharn\\Desktop\\config.yaml",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "utf8",
+        "x": 860,
+        "y": 260,
+        "wires": [
+            [
+                "b7a1b79226affc84"
+            ]
+        ]
+    },
+    {
+        "id": "9f5fe6917fd46e17",
+        "type": "join",
+        "z": "e15af5791eb569ed",
+        "name": "Соединить строки",
+        "mode": "custom",
+        "build": "string",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "2",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 670,
+        "y": 260,
+        "wires": [
+            [
+                "1e819ed0b53fd40e"
+            ]
+        ]
+    },
+    {
+        "id": "251b66a6e167e737",
+        "type": "inject",
+        "z": "e15af5791eb569ed",
+        "name": "Train",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "C:\\Users\\sharn\\Desktop\\prod\\diploma\\nodes\\train\\config.yaml",
+        "payloadType": "str",
+        "x": 90,
+        "y": 340,
+        "wires": [
+            [
+                "63c92d512a8a1c85"
+            ]
+        ]
+    },
+    {
+        "id": "e72e0da9fc376cb1",
+        "type": "inject",
+        "z": "e15af5791eb569ed",
+        "name": "Predict",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "C:\\Users\\sharn\\Desktop\\prod\\diploma\\nodes\\predict\\config.yaml",
+        "payloadType": "str",
+        "x": 90,
+        "y": 400,
+        "wires": [
+            [
+                "d41e0dd9a87ba650"
+            ]
+        ]
+    },
+    {
+        "id": "63c92d512a8a1c85",
+        "type": "template",
+        "z": "e15af5791eb569ed",
+        "name": "Преобразование строки",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "train_params: {{payload}}",
+        "output": "str",
+        "x": 390,
+        "y": 340,
+        "wires": [
+            [
+                "9f5fe6917fd46e17"
+            ]
+        ]
+    },
+    {
+        "id": "d41e0dd9a87ba650",
+        "type": "template",
+        "z": "e15af5791eb569ed",
+        "name": "Преобразование строки",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "predict_params: {{payload}}",
+        "output": "str",
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "9f5fe6917fd46e17"
+            ]
+        ]
+    }
+]

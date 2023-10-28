@@ -1,18 +1,18 @@
-data_params:
-  image_shape: [3, 224, 224]
-  classes:
-  - "butterfly"
-  - "cavallo"
-  - "elefante"
-  - "farfalla"
-  - "gallina"
-  - "gatto"
-  - "mucca"
-  - "pecora"
-  - "ragno"
-  - "scoiattolo"
-  batch_size: 64
-  shuffle: false
-  train_dir: "/animals10/train/"
-  test_dir: "/animals10/test/"
-  valid_dir: "/animals10/valid/"
+dataloader: C:\Users\sharn\Desktop\prod\diploma\nodes\dataloaders
+image_shape: [3, 224, 224]
+classes:
+- "butterfly"
+- "cavallo"
+- "elefante"
+- "farfalla"
+- "gallina"
+- "gatto"
+- "mucca"
+- "pecora"
+- "ragno"
+- "scoiattolo"
+batch_size: 64
+shuffle: false
+train_dir: C:\Users\sharn\Desktop\prod\diploma\data\animals10\train
+test_dir: C:\Users\sharn\Desktop\prod\diploma\data\animals10\test
+valid_dir: C:\Users\sharn\Desktop\prod\diploma\data\animals10\valid
