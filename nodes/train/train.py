@@ -9,9 +9,23 @@ from typing import List
 from torch import nn
 from torch.optim import Adam
 
-'''
- Объявляем класс для создания базовой модели, которые могут быть использованы в последствии для стэкинга и бэгинга
-'''
+"""
+Объявляем класс для создания базовой модели, описываем для класса методы инициализации, обучения и предсказания
+
+Параметры для инициализации:
+
+- net: модель нейронной сети, которую нужно обучить.
+- optim_type: тип оптимизатора, используемого для обновления весов модели.
+- optim_params: дополнительные параметры, специфичные для выбранного оптимизатора.
+- loss_fn: функция потерь, используемая для вычисления разницы между предсказанными и истинными значениями.
+- epochs: количество проходов через всю обучающую выборку.
+- batch_size: количество образцов в каждой мини-партии во время обучения.
+- image_shape: форма входных изображений, подаваемых на модель.
+- cuda: флаг, позволяющий использовать ускорение на GPU или использовать только CPU.
+- classes_: список меток классов или категорий для задач классификации.
+- pretrained_path: путь к заранее обученной модели, если таковая имеется.
+- model_name: имя или идентификатор модели.
+"""
 
 
 class PytorchModel(sklearn.base.BaseEstimator):
@@ -80,8 +94,6 @@ class PytorchModel(sklearn.base.BaseEstimator):
             train_accuracy_list.append(train_accuracy)
             valid_accuracy_list.append(valid_accuracy)
             loss_list.append(loss.detach().cpu().numpy())
-            # torch.save(self.net.state_dict(),
-            #            "" + self.model_name + str(epoch) + ".pt")
             print(f"Epoch {epoch},Train accuracy: {train_accuracy}, Valid accuracy: {valid_accuracy}, Loss: {loss}")
         print("---------------End Training--------------------")
         return train_accuracy_list, valid_accuracy_list, loss_list
@@ -105,6 +117,21 @@ class PytorchModel(sklearn.base.BaseEstimator):
         predictions = predictions.argmax(axis=1)
         return predictions
 
+"""
+Функция для обучения модели. Создаёт экземпляр базового класса и, используя его метод fit, производит обучение модели
+
+Параметры:
+- model: модель для обучения.
+- image_shape: размер изображений в формате [высота, ширина, количество каналов].
+- classes_: список классов.
+- train_loader: загрузчик данных для обучения.
+- epochs: количество эпох обучения (по умолчанию 10).
+- pretrained_path: путь к предобученной модели (по умолчанию None).
+- model_name: название модели (по умолчанию None).
+- batch_size: размер пакета данных (по умолчанию 32).
+- cuda: использование GPU для обучения (по умолчанию False).
+"""
+
 
 def train(
         model,
@@ -122,6 +149,21 @@ def train(
                               pretrained_path=pretrained_path, model_name=model_name,
                               batch_size=batch_size, cuda=cuda, image_shape=image_shape, classes_=classes_)
     base_model.fit(train_loader)
+
+    """
+    Функция для получения предсказаний модели. Создаёт экземпляр базового класса и, используя его метод predict, выдаёт предсказания модели
+
+    Параметры:
+    - model: модель для обучения.
+    - image_shape: размер изображений в формате [высота, ширина, количество каналов].
+    - classes_: список классов.
+    - test_loader: загрузчик данных для предсказания.
+    - epochs: количество эпох обучения (по умолчанию 10).
+    - pretrained_path: путь к предобученной модели (по умолчанию None).
+    - model_name: название модели (по умолчанию None).
+    - batch_size: размер пакета данных (по умолчанию 32).
+    - cuda: использование GPU для обучения (по умолчанию False).
+    """
 
 
 def predict(

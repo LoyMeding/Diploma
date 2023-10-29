@@ -1,4 +1,3 @@
-import argparse
 import yaml
 import logging
 import sys
@@ -17,9 +16,6 @@ logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
 
-PATH = "C:\\Users\\sharn\\Desktop\\prod\\diploma\\config.yaml"
-
-
 @dataclass()
 class PipelineParams:
     model_params: ModelParams
@@ -29,6 +25,14 @@ class PipelineParams:
 
 
 PipelineParamsSchema = class_schema(PipelineParams)
+
+"""
+Информация о подключенных узлах хранится в config.yaml файле. Получаем информацию из данного файла
+и для каждого узла также считываем его конфигурационный файл.
+    
+Параметры:
+- path: путь к конфигурационному файлу, полученному в результате работы узлов
+"""
 
 
 def read_pipeline_params(path: str) -> PipelineParams:
@@ -48,9 +52,5 @@ def read_pipeline_params(path: str) -> PipelineParams:
     logger.info("Check schema: %s", schema)
     logger.info("Successful read")
     return schema
-
-
-if __name__ == "__main__":
-    read_pipeline_params(PATH)
 
 

@@ -1,22 +1,25 @@
 import sys
 import logging
 
-from get_params import read_pipeline_params
+from entities.get_params import read_pipeline_params
 
 logger = logging.getLogger(__name__)
 handler = logging.StreamHandler(sys.stdout)
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
 logger.addHandler(handler)
 
-PATH = "C:\\Users\\sharn\\Desktop\\prod\\diploma\\config.yaml"
+# Указать путь к config.yaml с перечнем узлов
+PATH = "C:\\Users\\sharn\\Desktop\\prod\\diploma\\animals_pipeline\\config.yaml"
 
 params = read_pipeline_params(PATH)
 try:
+    # Импортируем функцию для создания загрузчиков данных
     module_path = params.dataloader_params.dataloader
     sys.path.append(module_path)
     module = __import__("dataloaders")
     create_dataloaders = getattr(module, 'dataloaders')
     logger.info("Successful dataload import")
+    # Создаём загрузчики данных
     train_loader, test_loader = create_dataloaders(
         params.dataloader_params.batch_size,
         params.dataloader_params.shuffle,
@@ -27,13 +30,14 @@ try:
     logger.info("Successful dataloaders creating")
 except:
     logger.info("Create dataload error")
-
 try:
+    # Импортируем функцию для инициализации модели
     module_path = params.model_params.model
     sys.path.append(module_path)
     module = __import__("model")
     create_model = getattr(module, 'model')
     logger.info("Successful model import")
+    # Инициализируем модель
     model = create_model(
         params.dataloader_params.classes
     )
@@ -42,11 +46,13 @@ except:
     logger.info("Create model error")
 
 try:
+    # Импортируем функцию для обучения модели
     module_path = params.train_params.train
     sys.path.append(module_path)
     module = __import__("train")
     train = getattr(module, 'train')
     logger.info("Successful train import")
+    # Обучаем модель
     train(
         model,
         params.dataloader_params.image_shape,
@@ -61,4 +67,3 @@ try:
     logger.info("Successful training")
 except:
     logger.info("Training error")
-

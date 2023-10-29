@@ -6,7 +6,7 @@ import torchvision.transforms as transforms
 from PIL import Image
 from typing import Tuple
 from torchvision.transforms.functional import InterpolationMode
-from torch.utils.data import DataLoader, TensorDataset, Dataset
+from torch.utils.data import Dataset
 
 
 class ImageFolderDataset(Dataset):

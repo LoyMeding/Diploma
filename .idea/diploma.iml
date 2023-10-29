@@ -7,4 +7,7 @@
     <orderEntry type="jdk" jdkName="Python 3.10 (diploma)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="requirementsPath" value="C:\Users\sharn\Desktop\prod\diploma\requirements.txt" />
+  </component>
 </module>
